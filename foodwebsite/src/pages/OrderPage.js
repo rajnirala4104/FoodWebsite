@@ -26,7 +26,7 @@ export const OrderPage = () => {
           <section key={detail.idMeal} className="orderSection ">
             <div className="orderMealDetails ">
               <div className="cardImage">
-                <img src={detail.strMealThumb} alt={detail.strMeal} />
+                <img src={detail.strMealThumb} className="img_fluid img-responsive" alt={detail.strMeal} />
               </div>
               <div className="cardContent">
                 <div className="cardName text-center">

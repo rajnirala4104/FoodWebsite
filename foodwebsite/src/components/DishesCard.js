@@ -8,7 +8,7 @@ export const DishesCard = (props) => {
     <>
       <div className="dishCard container bg-light">
         <div className="img">
-          <img loading="lazy" src={props.strMealThumb} alt={props.dishName} />
+          <img loading="lazy" className="img_fluid img-responsive" src={props.strMealThumb} alt={props.dishName} />
         </div>
         <div className="aboutDish">
           <span>{props.strMeal}</span>
