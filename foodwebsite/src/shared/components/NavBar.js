@@ -21,13 +21,13 @@ export const NavBar = (props) => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className={`nav-item ${props.pathname === 'home' ? "active": ""}`}>
+          <li className={`nav-item ${props.pathname === '/' ? "active": ""}`}>
             <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={`nav-link ${props.pathname === 'food' ? "active" : ""}`}to="/food">
+            <Link className={`nav-link ${props.pathname === '/food' ? "active" : ""}`}to="/food">
               Foods
             </Link>
           </li>

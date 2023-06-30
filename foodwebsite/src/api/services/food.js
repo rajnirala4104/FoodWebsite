@@ -8,3 +8,7 @@ export const getFoodCategories = () => {
 export const filterFoodItems = (category) => {
     return http.get(`${ENDPOINTS.FILTER_FOOD_ITEM}?c=${category}`)
 }
+
+export const getFoodDataByNameOrBySearch = (foodName) => {
+    return http.get(`${ENDPOINTS.BY_SEARCH}?s=${foodName}`)
+}

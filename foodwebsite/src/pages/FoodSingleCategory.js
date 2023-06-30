@@ -11,7 +11,7 @@ export const FoodSingleCategory = () => {
     const foodData = await filterFoodItems(categoryPathname.categoryName);
     setFoods(foodData.data);
   };
-    console.log(foods.meals);
+  console.log(foods.meals);
   useEffect(() => {
     fetchFood();
   }, []);
@@ -23,11 +23,7 @@ export const FoodSingleCategory = () => {
       <>
         <section className="mealContainer">
           {foods.meals.map((food) => (
-            <DishesCard
-              dishName={food.strMeal}
-              key={food.idMeal}
-              dishImage={food.strMealThumb}
-            />
+            <DishesCard key={food.idMeal} {...food} />
           ))}
         </section>
       </>

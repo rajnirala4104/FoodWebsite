@@ -1,0 +1,59 @@
+.orderSection{
+    /* border: 2px solid red; */
+
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;  
+    /* flex-direction: column; */
+}
+
+.orderMealDetails{
+    /* border: 2px solid black; */
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px -10px black;
+    padding: 10px 0px;
+    margin: 5px auto;
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+.cardContent{
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.cardImage img{
+    width: 20rem;
+}
+.cardName{
+    font-size: 30px;
+}
+.cardName span{
+    font-weight: 700;
+}
+.mealInstuction{
+    text-align: center;
+}
+.paymentSection{
+    /* border: 2px solid green; */
+    width: 90vh;
+    padding: 20px 0px;
+
+}
+
+.paymentElements{
+    /* border: 2px solid yellow; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.cardDateDetails{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -22,8 +22,8 @@ export const FoodCategory = () => {
 
   if (loading) {
     return (
-      <section className="container loadingSection w-100 h-100">
-        <div className="container center display-4">fetching.....</div>
+      <section className="container d-flex justify-content-center loadingSection w-100 h-100">
+        <div className="container center display-4 text-secondary text-center my-5">Fetching.....</div>
       </section>
     );
   }

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { FoodCategory, FoodSingleCategory, Home, Root } from "../pages";
+import { FoodCategory, FoodSingleCategory, Home, OrderPage, Root } from "../pages";
 
 export const _ROUTERS = createBrowserRouter([{
     path: "/",
@@ -19,7 +19,7 @@ export const _ROUTERS = createBrowserRouter([{
       },
       {
         path: "/food/:categoryName/:orderMeal",
-        element: <FoodSingleCategory/>,
+        element: <OrderPage/>
       },
     ],
   },
