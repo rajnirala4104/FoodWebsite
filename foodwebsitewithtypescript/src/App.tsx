@@ -1,12 +1,12 @@
-import './App.css';
+import "./App.css";
 // import { Home } from './Pages';
-import {RouterProvider} from  'react-router-dom'
-import { _ROUTER } from './router';
+import { RouterProvider } from "react-router-dom";
+import { _ROUTER } from "./router";
 
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={_ROUTER}/>
+      <RouterProvider router={_ROUTER} />
     </div>
   );
 }

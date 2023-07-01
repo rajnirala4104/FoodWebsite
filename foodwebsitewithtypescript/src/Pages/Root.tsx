@@ -1,10 +1,12 @@
-import { Outlet } from "react-router-dom";
-import { Navgbar } from "../shared/components/Navgbar";
+import { Outlet, useLocation } from "react-router-dom";
+import { Navbar } from "../shared/components/Navbar";
 
 export const Root = () => {
+  const path = useLocation();
+  
   return (
     <>
-      <Navgbar/>
+      <Navbar pathname={path.pathname} />
       <Outlet />
     </>
   );

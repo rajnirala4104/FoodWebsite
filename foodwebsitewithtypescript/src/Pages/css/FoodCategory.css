@@ -1,0 +1,6 @@
+.catCardContainer{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-around;    
+    flex-wrap: wrap;
+}
