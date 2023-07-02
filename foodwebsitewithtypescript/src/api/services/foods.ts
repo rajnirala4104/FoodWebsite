@@ -5,7 +5,7 @@ export const getFoodCategories = ()=>{
     return http.get(ENDPOINTS.FOOD_CATEGORIES)
 }
 
-export const getFilteredFoodsItems = (category:string) =>{
+export const getFilteredFoodsItems = (category:string | undefined) =>{
     return http.get(`${ENDPOINTS.FILTER_FOOD_ITEM}?c=${category}`)
 }
 

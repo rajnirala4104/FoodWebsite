@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFoodCategories } from "../api/services";
 import { Card } from "../Components/Card";
-import './css/FoodCategory.css'
+import "./css/FoodCategory.css";
 
 interface FoodDataType {
   idCateory: string;
@@ -28,7 +28,7 @@ export const FoodCategories = () => {
     fetched();
   }, []);
 
-  console.log(fetchedData);
+  // console.log(fetchedData);
 
   if (loading) {
     return (
@@ -39,12 +39,10 @@ export const FoodCategories = () => {
       </>
     );
   }
-
   return (
     <section className="container catCardContainer">
       {fetchedData.map((detailDic) => (
         <Card
-          key={detailDic.idCateory}
           idCategory={detailDic.idCateory}
           strCategory={detailDic.strCategory}
           strCategoryDescription={detailDic.strCategoryDescription}

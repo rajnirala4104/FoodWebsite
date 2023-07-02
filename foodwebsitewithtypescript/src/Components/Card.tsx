@@ -11,7 +11,7 @@ interface Props {
 export const Card = ({idCategory, strCategory, strCategoryDescription, strThumb}:Props) => {
   return (
     <>
-      <Link to={`/foodcategories/${strCategory}`} className="card my-3 text-dark shadow" style={{width:"18rem"}}>
+      <Link to={`/foodcategories/${strCategory}`} key={idCategory} className="card my-3 text-dark shadow" style={{width:"18rem"}}>
         <img src={strThumb} loading="lazy" className="card-img-top img_fluid img-responsive rounded" alt={strCategory} />
         <div className="card-body">
           <h5 className="card-title">{idCategory} - {strCategory}</h5>
