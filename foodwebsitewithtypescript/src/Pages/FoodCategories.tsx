@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { getFoodCategories } from "../api/services";
 import { Card } from "../Components/Card";
@@ -17,10 +18,10 @@ export const FoodCategories = () => {
   const fetched = async () => {
     setLoading(true);
     const response = await getFoodCategories();
-    const responseDataDic: FoodDataType[] = [];
-
-    response.data.categories.map((data: any) => responseDataDic.push(data));
-    setFetchedData(responseDataDic);
+    if (response.data.categories.length > 0) {
+      const responseDataDic = [...response.data.categories];
+      setFetchedData(responseDataDic);
+    }
     setLoading(false);
   };
 
@@ -32,22 +33,20 @@ export const FoodCategories = () => {
 
   if (loading) {
     return (
-      <>
-        <div className="loadingDiv p-3 display-3 text-secondary">
-          fetching..
-        </div>
-      </>
+      <div className="loadingDiv p-3 display-3 text-secondary">fetching..</div>
     );
   }
   return (
     <section className="container catCardContainer">
-      {fetchedData.map((detailDic) => (
-        <Card
-          idCategory={detailDic.idCateory}
-          strCategory={detailDic.strCategory}
-          strCategoryDescription={detailDic.strCategoryDescription}
-          strThumb={detailDic.strCategoryThumb}
-        />
+      {fetchedData.map((detailDic, i) => (
+        <React.Fragment key={i}>
+          <Card
+            idCategory={detailDic.idCateory}
+            strCategory={detailDic.strCategory}
+            strCategoryDescription={detailDic.strCategoryDescription}
+            strThumb={detailDic.strCategoryThumb}
+          />
+        </React.Fragment>
       ))}
     </section>
   );
