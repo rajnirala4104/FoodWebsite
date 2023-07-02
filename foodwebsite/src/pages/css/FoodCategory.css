@@ -6,9 +6,19 @@
     flex-wrap: wrap;
 }
 
-.mealContainer{
+.foodCardContainer{
     /* border: 2px solid red; */
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.filterSection{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: sticky;
+    top:0;
+    width: 100%;
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { getFilteredFoodsItems } from "../api/services";
 import { useEffect, useState } from "react";
-import { reduceEachTrailingCommentRange } from "typescript";
 
 interface Meals {
   strMeal: string;
@@ -19,7 +18,7 @@ export const Foods = () => {
   const fetchFoods = async () => {
     setLoading(true);
     const response = await getFilteredFoodsItems(path);
-    if (response.data.meals.length > 0) {
+    if (response.data && response.data.meals.length > 0) {
       const responseArr = [...response.data.meals];
       setfilteredFood(responseArr);
     }

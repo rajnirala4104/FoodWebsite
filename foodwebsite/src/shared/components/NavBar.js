@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const NavBar = (props) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <Link className="navbar-brand text-warning" to="/">
-        Foodies
+    <nav className="navbar navbar-expand-lg position-sticky navbar-dark bg-dark">
+      <Link className="navbar-brand text-light" to="/">
+        Food<span className="text-warning">.ies</span>
       </Link>
       <button
         className="navbar-toggler"
@@ -21,13 +21,18 @@ export const NavBar = (props) => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className={`nav-item ${props.pathname === '/' ? "active": ""}`}>
+          <li className={`nav-item ${props.pathname === "/" ? "active" : ""}`}>
             <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className={`nav-link ${props.pathname === '/food' ? "active" : ""}`}to="/food">
+            <Link
+              className={`nav-link ${
+                props.pathname === "/food" ? "active" : ""
+              }`}
+              to="/food"
+            >
               Foods
             </Link>
           </li>
@@ -39,7 +44,10 @@ export const NavBar = (props) => {
             placeholder="Search"
             aria-label="Search"
           />
-          <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">
+          <button
+            className="btn btn-outline-warning my-2 my-sm-0"
+            type="submit"
+          >
             Search
           </button>
         </form>
