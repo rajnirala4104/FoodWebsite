@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { filterFoodItems } from "../api/services";
+import React, { useEffect, useId, useState } from "react";
+import { filterFoodItems, getAreaList, getFoodDataByNameOrBySearch, getFoodItemByAreName } from "../api/services";
 import { useParams } from "react-router-dom";
 import { DishesCard } from "../components/DishesCard";
 
@@ -7,8 +7,10 @@ export const FoodSingleCategory = () => {
   const [foods, setFoods] = useState([]);
   const categoryPathname = useParams();
   const [loading, setLoading] = useState(false);
-
   const [userInputs, setUserInputs] = useState("");
+  const [areList, setAreList] = useState([]);
+  const [areaName, setAreaName] = useState("American")
+  const [filtedFoodNameByAreName, setFiltedFoodNameByAreName] = useState([])
 
   const fetchFood = async () => {
     setLoading(true);
@@ -20,22 +22,26 @@ export const FoodSingleCategory = () => {
     }
     setLoading(false);
   };
-  const _FOODNAMELIST = [];
-  foods.forEach((dataDic) => _FOODNAMELIST.push(dataDic.strMeal));
 
-  const [foodNameList, setFoodNameList] = useState(_FOODNAMELIST);
+  const fetchAreList = async () => {
+    const result = await getAreaList();
+    setAreList(result.data.meals);
+  };
 
-  useEffect(() => {
-    setFoodNameList(
-      _FOODNAMELIST.filter((foodName) => foodName.includes(userInputs))
-    );
-  }, [userInputs]);
-  console.log(foodNameList);
-  
+  const fetchFoodByAreaName = async (areaKaNaam) => {
+    const result = await getFoodItemByAreName(areaKaNaam)
+    setFiltedFoodNameByAreName(result.data.meals)
+  }
+
+  useEffect(()=>{
+    fetchFoodByAreaName(areaName)
+  }, [areaName])
+
   useEffect(() => {
     fetchFood();
-  }, []);
+    fetchAreList();
 
+  }, []);
   if (loading) {
     return (
       <div className="container text-center display-4 text-secondary my-5 py-4">
@@ -43,16 +49,19 @@ export const FoodSingleCategory = () => {
       </div>
     );
   } else {
-    if (foods === undefined) {
-      console.log("meal is undefine so that's why we able to iterate.");
-    } else {
+    if (foods.length > 0) {
       return (
         <>
           <section className="mealContainer">
             <div className="filterSection d-flex bg-warning">
               <div>
-                <select name="" id="">
-                  <option value="India">India</option>
+                <select onChange={(e) => setAreaName(e.target.value)}>
+                  <option value="all">-- select --</option>
+                  {areList.map((dataDic, i) => (
+                    <option value={dataDic.strArea} key={i}>
+                      {dataDic.strArea}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="inputText">
@@ -67,13 +76,16 @@ export const FoodSingleCategory = () => {
               </div>
             </div>
             <div className="foodCardContainer">
-              {foods.map((food) => (
+              {filtedFoodNameByAreName.map((food) => (
                 <DishesCard key={food.idMeal} {...food} />
               ))}
             </div>
           </section>
         </>
       );
+    } else {
+      // console.log("meal is empty so that's why we able to iterate.");
+      
     }
   }
 };

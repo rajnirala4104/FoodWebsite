@@ -4,5 +4,6 @@ export const API_REQUEST_TIMOUT = 5000
 export const ENDPOINTS = {
     FOOD_CATEGORIES: '/categories.php',
     FILTER_FOOD_ITEM: '/filter.php',
-    BY_SEARCH: '/search.php'
+    BY_SEARCH: '/search.php',
+    AREA_LIST: '/list.php?a=list'
 }
