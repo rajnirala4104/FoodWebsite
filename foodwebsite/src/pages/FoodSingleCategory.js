@@ -1,22 +1,19 @@
-import React, { useEffect, useId, useState } from "react";
-import { filterFoodItems, getAreaList, getFoodDataByNameOrBySearch, getFoodItemByAreName } from "../api/services";
+import React, { useEffect, useState } from "react";
+import { filterFoodItems, getAreaList, getFoodItemByAreName } from "../api/services";
 import { useParams } from "react-router-dom";
 import { DishesCard } from "../components/DishesCard";
 
 export const FoodSingleCategory = () => {
-  const [foods, setFoods] = useState([]);
   const categoryPathname = useParams();
+  const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userInputs, setUserInputs] = useState("");
   const [areList, setAreList] = useState([]);
-  const [areaName, setAreaName] = useState("American")
-  const [filtedFoodNameByAreName, setFiltedFoodNameByAreName] = useState([])
+  const [foodsByArea, setFoodsByArea] = useState([])
 
   const fetchFood = async () => {
     setLoading(true);
-    const foodDataResponse = await filterFoodItems(
-      categoryPathname.categoryName
-    );
+    const foodDataResponse = await filterFoodItems(categoryPathname.categoryName);
     if (foodDataResponse.data && foodDataResponse.data.meals.length > 0) {
       setFoods(foodDataResponse.data.meals);
     }
@@ -28,19 +25,18 @@ export const FoodSingleCategory = () => {
     setAreList(result.data.meals);
   };
 
-  const fetchFoodByAreaName = async (areaKaNaam) => {
-    const result = await getFoodItemByAreName(areaKaNaam)
-    setFiltedFoodNameByAreName(result.data.meals)
+  const fetchFoodByArea = async(areaName) => {
+    const result = await getFoodItemByAreName(areaName)
+    if(result.data.meals && result.data.meals.length > 0){
+      setFoodsByArea(result.data.meals)
+    }
   }
 
-  useEffect(()=>{
-    fetchFoodByAreaName(areaName)
-  }, [areaName])
+
 
   useEffect(() => {
     fetchFood();
     fetchAreList();
-
   }, []);
   if (loading) {
     return (
@@ -55,8 +51,8 @@ export const FoodSingleCategory = () => {
           <section className="mealContainer">
             <div className="filterSection d-flex bg-warning">
               <div>
-                <select onChange={(e) => setAreaName(e.target.value)}>
-                  <option value="all">-- select --</option>
+                <select onChange={(e)=> fetchFoodByArea(e.target.value)}>
+                  {/* <option value="all">-- select --</option> */}
                   {areList.map((dataDic, i) => (
                     <option value={dataDic.strArea} key={i}>
                       {dataDic.strArea}
@@ -72,11 +68,11 @@ export const FoodSingleCategory = () => {
                 />
               </div>
               <div className="numOfOrder">
-                <span>43</span>
+                <span>{foodsByArea.length}</span>
               </div>
             </div>
             <div className="foodCardContainer">
-              {filtedFoodNameByAreName.map((food) => (
+              {foodsByArea.filter(food => food.strMeal.toLowerCase().includes(userInputs.toLowerCase())).map((food) => (
                 <DishesCard key={food.idMeal} {...food} />
               ))}
             </div>
