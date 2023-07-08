@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { filterFoodItems, getAreaList, getFoodItemByAreName } from "../api/services";
 import { useParams } from "react-router-dom";
+import {
+  filterFoodItems,
+  getAreaList,
+  getFoodItemByAreName,
+} from "../api/services";
 import { DishesCard } from "../components/DishesCard";
 
 export const FoodSingleCategory = () => {
@@ -8,36 +12,37 @@ export const FoodSingleCategory = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userInputs, setUserInputs] = useState("");
-  const [areList, setAreList] = useState([]);
-  const [foodsByArea, setFoodsByArea] = useState([])
+  const [areaList, setAreaList] = useState([]);
+  const [foodsByArea, setFoodsByArea] = useState([]);
 
   const fetchFood = async () => {
     setLoading(true);
-    const foodDataResponse = await filterFoodItems(categoryPathname.categoryName);
+    const foodDataResponse = await filterFoodItems(
+      categoryPathname.categoryName
+    );
     if (foodDataResponse.data && foodDataResponse.data.meals.length > 0) {
       setFoods(foodDataResponse.data.meals);
     }
     setLoading(false);
   };
 
-  const fetchAreList = async () => {
+  const fetchAreaList = async () => {
     const result = await getAreaList();
-    setAreList(result.data.meals);
+    setAreaList(result.data.meals);
   };
 
-  const fetchFoodByArea = async(areaName) => {
-    const result = await getFoodItemByAreName(areaName)
-    if(result.data.meals && result.data.meals.length > 0){
-      setFoodsByArea(result.data.meals)
+  const fetchFoodByArea = async (areaName) => {
+    const result = await getFoodItemByAreName(areaName);
+    if (result.data.meals && result.data.meals.length > 0) {
+      setFoodsByArea(result.data.meals);
     }
-  }
-
-
+  };
 
   useEffect(() => {
     fetchFood();
-    fetchAreList();
+    fetchAreaList();
   }, []);
+
   if (loading) {
     return (
       <div className="container text-center display-4 text-secondary my-5 py-4">
@@ -45,15 +50,15 @@ export const FoodSingleCategory = () => {
       </div>
     );
   } else {
-    if (foods.length > 0) {
+    if (foodsByArea.length >= 0) {
       return (
         <>
           <section className="mealContainer">
             <div className="filterSection d-flex bg-warning">
               <div>
-                <select onChange={(e)=> fetchFoodByArea(e.target.value)}>
+                <select onChange={(e) => fetchFoodByArea(e.target.value)}>
                   {/* <option value="all">-- select --</option> */}
-                  {areList.map((dataDic, i) => (
+                  {areaList.map((dataDic, i) => (
                     <option value={dataDic.strArea} key={i}>
                       {dataDic.strArea}
                     </option>
@@ -72,16 +77,19 @@ export const FoodSingleCategory = () => {
               </div>
             </div>
             <div className="foodCardContainer">
-              {foodsByArea.filter(food => food.strMeal.toLowerCase().includes(userInputs.toLowerCase())).map((food) => (
-                <DishesCard key={food.idMeal} {...food} />
-              ))}
+              {foodsByArea
+                .filter((food) =>
+                  food.strMeal.toLowerCase().includes(userInputs.toLowerCase())
+                )
+                .map((food) => (
+                  <DishesCard key={food.idMeal} {...food} />
+                ))}
             </div>
           </section>
         </>
       );
     } else {
       // console.log("meal is empty so that's why we able to iterate.");
-      
     }
   }
 };
